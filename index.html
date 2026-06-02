@@ -3,705 +3,379 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Employee Map</title>
+    <title>Employee Map | AIHR洞察</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="site-shell">
-      <header class="topbar">
+    <div class="product-shell">
+      <aside class="app-sidebar">
         <div class="brand">
-          <span class="brand-mark">Ashley</span>
-          <span class="brand-divider">|</span>
-          <span class="brand-sub">AIHR洞察</span>
+          <span class="brand-mark">A</span>
+          <div>
+            <strong>Ashley</strong>
+            <small>AIHR洞察</small>
+          </div>
         </div>
-        <nav class="top-nav" aria-label="Section navigation">
-          <a href="#overview">组织总览</a>
-          <a href="#mapping">字段配置</a>
-          <a href="#analysis">深度分析</a>
-          <a href="#report">洞察输出</a>
-        </nav>
-        <div class="badge-pill">AIHR | 动手做 第三期</div>
-      </header>
 
-      <main>
-        <section class="hero-screen screen">
-          <div class="hero-copy">
-            <p class="eyebrow orange">这个产品到底在看什么</p>
-            <h1>不是普通 HR 报表，而是一张可下钻、可配置、可解释的组织地图</h1>
+        <nav class="nav-list" aria-label="Product navigation">
+          <button class="nav-item active" data-view="command">总览工作台</button>
+          <button class="nav-item" data-view="import">上传与字段映射</button>
+          <button class="nav-item" data-view="overview">组织总览</button>
+          <button class="nav-item" data-view="drilldown">部门下钻</button>
+          <button class="nav-item" data-view="insights">洞察输出</button>
+          <button class="nav-item" data-view="settings">规则配置</button>
+        </nav>
+
+        <section class="data-status">
+          <span class="status-dot"></span>
+          <div>
+            <strong>本地数据源已连接</strong>
+            <small>花名册 2025-05-20</small>
+          </div>
+        </section>
+      </aside>
+
+      <main class="app-main">
+        <header class="app-header">
+          <div>
+            <p class="eyebrow">Employee Map</p>
+            <h1>可配置、可下钻、可解释的组织地图</h1>
+          </div>
+          <div class="header-actions">
+            <button class="ghost-btn" data-action="sample-upload">模拟上传花名册</button>
+            <button class="primary-btn" data-action="generate-report">生成老板版摘要</button>
+          </div>
+        </header>
+
+        <section class="view active" id="command" aria-labelledby="command-title">
+          <div class="command-hero">
+            <div>
+              <p class="pill-label">AIHR | 动手做 第三期</p>
+              <h2 id="command-title">这个产品到底在看什么</h2>
+              <p>它不是把花名册做成几张图，而是把员工数据变成一张能被 HR 配置、被业务下钻、被老板读懂的组织地图。</p>
+            </div>
+            <div class="flow-card">
+              <span>Excel 花名册</span>
+              <b>→</b>
+              <span>字段映射</span>
+              <b>→</b>
+              <span>组织总览</span>
+              <b>→</b>
+              <span>部门下钻</span>
+              <b>→</b>
+              <span>洞察输出</span>
+            </div>
           </div>
 
-          <div class="hero-grid">
-            <aside class="steps-column left">
-              <article class="step-card">
-                <span class="step-num">01</span>
-                <h3>上传与字段映射</h3>
-                <p>花名册先标准化，支持 Excel 一键上传，智能识别字段并自动映射标准字段。</p>
-              </article>
-              <article class="step-card">
-                <span class="step-num">02</span>
-                <h3>组织总览</h3>
-                <p>第一屏先看全局，关键指标总览，层级与异常一目了然。</p>
-              </article>
-              <article class="step-card">
-                <span class="step-num">03</span>
-                <h3>部门下钻</h3>
-                <p>按部门查看组织结构、层级分布与编制对比，识别冗余层与冗余岗位。</p>
-              </article>
-            </aside>
+          <div class="product-grid">
+            <article class="capability-card" data-jump="import">
+              <span>01</span>
+              <h3>上传与字段映射</h3>
+              <p>不同公司的字段名、部门层级、职级顺序都不一样，所以产品先解决“花名册如何标准化”。</p>
+            </article>
+            <article class="capability-card" data-jump="overview">
+              <span>02</span>
+              <h3>组织总览</h3>
+              <p>第一屏看规模、分布、密度和异常。老板能快速理解全局，HR 能知道哪里值得下钻。</p>
+            </article>
+            <article class="capability-card" data-jump="drilldown">
+              <span>03</span>
+              <h3>部门下钻</h3>
+              <p>点进团队后看它怎么长出来：新人占比、司龄结构、管理跨度、职级密度和城市集中度。</p>
+            </article>
+            <article class="capability-card" data-jump="insights">
+              <span>04</span>
+              <h3>可解释洞察</h3>
+              <p>图表只是中间过程，最后输出关键发现、结构风险、建议动作和可导出的汇报材料。</p>
+            </article>
+          </div>
 
-            <section class="dashboard-frame hero-dashboard">
-              <div class="dashboard-sidebar slim">
-                <div class="sidebar-logo">Ashley</div>
-                <button class="side-btn active">组织总览</button>
-                <button class="side-btn">部门下钻</button>
-                <button class="side-btn">深度分析</button>
-                <button class="side-btn">报告输出</button>
-                <button class="side-btn">数据管理</button>
-                <button class="side-btn">设置</button>
+          <div class="dashboard-preview">
+            <div class="preview-top">
+              <div>
+                <h3>组织健康工作台</h3>
+                <p>数据更新时间：2025-05-20 10:30 ｜ 数据来源：Ashley AIHR（本地）</p>
               </div>
-              <div class="dashboard-main">
-                <div class="panel-header">
+              <span class="ai-chip">AI 解释已开启</span>
+            </div>
+            <div class="metric-row" id="commandMetrics"></div>
+            <div class="preview-grid">
+              <article class="panel">
+                <h4>组织职级分布</h4>
+                <div class="pyramid-chart" id="commandPyramid"></div>
+              </article>
+              <article class="panel">
+                <h4>近 12 个月人数趋势</h4>
+                <div class="stack-chart" id="commandTrend"></div>
+              </article>
+              <article class="panel">
+                <h4>部门人数 Top 10</h4>
+                <div class="bar-list" id="commandBars"></div>
+              </article>
+              <article class="panel">
+                <h4>组织健康雷达</h4>
+                <div class="radar-widget">
+                  <div class="radar-shape"></div>
                   <div>
-                    <h2>组织总览</h2>
-                    <p>数据更新时间：2025-05-20 10:30　数据来源：Ashley AIHR（本地）</p>
-                  </div>
-                  <div class="header-actions">
-                    <button>配置规则</button>
-                    <button>导出报告</button>
+                    <strong>78</strong>
+                    <span>/ 100</span>
+                    <p>良好，较上月 +4</p>
                   </div>
                 </div>
-                <div class="stat-grid compact">
-                  <div class="stat-card">
-                    <span>员工总数</span>
-                    <strong>2,431</strong>
-                    <em>较上月 +2.4%</em>
-                  </div>
-                  <div class="stat-card">
-                    <span>部门数</span>
-                    <strong>28</strong>
-                    <em>较上月 +1</em>
-                  </div>
-                  <div class="stat-card">
-                    <span>管理跨度</span>
-                    <strong>6.2</strong>
-                    <em>较上月 -0.3</em>
-                  </div>
-                  <div class="stat-card">
-                    <span>中层占比</span>
-                    <strong>18.7%</strong>
-                    <em class="negative">较上月 -1.2pp</em>
-                  </div>
-                  <div class="stat-card">
-                    <span>关键岗位空缺</span>
-                    <strong>23</strong>
-                    <em class="negative">较上月 +3</em>
-                  </div>
-                </div>
-                <div class="hero-chart-grid">
-                  <article class="chart-card">
-                    <h3>组织职级分布</h3>
-                    <div class="pyramid mini">
-                      <div style="--w: 16%">高层</div>
-                      <div style="--w: 30%">中层</div>
-                      <div style="--w: 55%">资深管理</div>
-                      <div style="--w: 72%">专业骨干</div>
-                      <div style="--w: 90%">基层员工</div>
-                    </div>
-                  </article>
-                  <article class="chart-card">
-                    <h3>人效趋势（近 12 个月）</h3>
-                    <div class="stack-bars">
-                      <span style="--a: 38; --b: 22; --c: 16; --d: 11"></span>
-                      <span style="--a: 40; --b: 23; --c: 18; --d: 12"></span>
-                      <span style="--a: 43; --b: 24; --c: 18; --d: 12"></span>
-                      <span style="--a: 46; --b: 24; --c: 19; --d: 13"></span>
-                      <span style="--a: 48; --b: 26; --c: 20; --d: 14"></span>
-                      <span style="--a: 50; --b: 28; --c: 20; --d: 15"></span>
-                    </div>
-                  </article>
-                  <article class="chart-card">
-                    <h3>部门人数 Top 10</h3>
-                    <div class="donut-and-list">
-                      <div class="donut" style="--segments: conic-gradient(#ff8358 0 22%, #59a5ff 22% 40%, #6edec9 40% 55%, #8570ff 55% 68%, #2f5cff 68% 100%)">
-                        <span>2,431</span>
-                      </div>
-                      <ul class="legend-list">
-                        <li><span class="dot c1"></span>产品研发 23.4%</li>
-                        <li><span class="dot c2"></span>销售 18.7%</li>
-                        <li><span class="dot c3"></span>运营 12.9%</li>
-                        <li><span class="dot c4"></span>技术支持 11.1%</li>
-                        <li><span class="dot c5"></span>其他 33.9%</li>
-                      </ul>
-                    </div>
-                  </article>
-                  <article class="chart-card">
-                    <h3>组织健康雷达</h3>
-                    <div class="radar-card">
-                      <div class="radar-web">
-                        <div class="radar-shape"></div>
-                      </div>
-                      <div class="score-box">
-                        <span>组织健康度</span>
-                        <strong>78 / 100</strong>
-                        <em>较上月 +4</em>
-                      </div>
-                    </div>
-                  </article>
-                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="import" aria-labelledby="import-title">
+          <div class="view-title">
+            <p class="eyebrow red">字段配置</p>
+            <h2 id="import-title">每家公司花名册都能用</h2>
+            <p>真正有用的地方不是图表，而是把任意花名册转换成可复用的组织分析模板。</p>
+          </div>
+
+          <div class="import-layout">
+            <section class="upload-card">
+              <div class="upload-icon">↑</div>
+              <h3>上传员工花名册</h3>
+              <p>支持 Excel / CSV。原型内置了示例数据，点击按钮即可模拟清洗与映射。</p>
+              <button class="primary-btn" data-action="sample-upload">使用示例花名册</button>
+              <div class="upload-progress" aria-label="Import progress">
+                <span style="--p: 100%"></span>
+              </div>
+              <small id="uploadStatus">已识别 18,732 条员工记录，15 个字段，4 条质量规则。</small>
+            </section>
+
+            <section class="mapping-board">
+              <div class="mapping-column">
+                <h3>原始字段（示例）</h3>
+                <div id="rawFields"></div>
+              </div>
+              <div class="mapping-arrows" aria-hidden="true"></div>
+              <div class="mapping-column">
+                <h3>标准字段 <b>可复用模板</b></h3>
+                <div id="standardFields"></div>
               </div>
             </section>
 
-            <aside class="steps-column right">
-              <article class="step-card">
-                <span class="step-num">04</span>
-                <h3>深度分析</h3>
-                <p>看结构断层和人才密度，做结构断层检测、人才密度分析与异常预警。</p>
-              </article>
-              <article class="step-card">
-                <span class="step-num">05</span>
-                <h3>报告输出</h3>
-                <p>把图表变成老板看得懂的话，一键生成摘要报告并导出 PPT / PDF。</p>
-              </article>
-            </aside>
-          </div>
-
-          <div class="problem-strip">
-            <div class="problem-box">
-              <h3>它能解决什么</h3>
-              <ul>
-                <li>花名册只是 Excel，看不出组织结构</li>
-                <li>不同部门扩张节奏不同，容易混在一起</li>
-                <li>只看人数没用，看不到中层断层</li>
-                <li>老板需要一句话摘要，不是一张图</li>
-                <li>HR 需要本地运行，更适合敏感数据</li>
-              </ul>
-            </div>
-            <div class="flow-box">
-              <div class="flow-step">一张花名册</div>
-              <div class="flow-arrow">→</div>
-              <div class="flow-step">组织概览</div>
-              <div class="flow-arrow">→</div>
-              <div class="flow-step">部门下钻</div>
-              <div class="flow-arrow">→</div>
-              <div class="flow-step">结构信号</div>
-              <div class="flow-arrow">→</div>
-              <div class="flow-step">摘要输出</div>
-            </div>
-          </div>
-        </section>
-
-        <section class="screen detail-screen" id="overview">
-          <div class="section-headline">
-            <p class="eyebrow violet">组织总览</p>
-            <h2>第一屏先看全局</h2>
-            <p>老板能一眼看懂，HR 能继续往下钻。</p>
-          </div>
-
-          <div class="overview-layout dashboard-frame">
-            <aside class="dashboard-sidebar">
-              <div class="sidebar-brand">Ashley</div>
-              <button class="side-btn">首页</button>
-              <button class="side-btn active">组织总览</button>
-              <button class="side-btn">组织架构</button>
-              <button class="side-btn">人员分析</button>
-              <button class="side-btn">编制管理</button>
-              <button class="side-btn">用工管理</button>
-              <button class="side-btn">薪酬洞察</button>
-              <button class="side-btn">人才发展</button>
-              <button class="side-btn">数据报表</button>
-              <button class="side-btn">预警中心</button>
-              <button class="side-btn">设置中心</button>
-              <div class="date-chip">数据截至<br />2025-05-20</div>
-            </aside>
-
-            <div class="overview-main">
-              <div class="toolbar">
-                <h3>组织总览</h3>
-                <div class="toolbar-actions">
-                  <button>截至日期 2025-05-20</button>
-                  <button>导出</button>
-                </div>
-              </div>
-
-              <div class="stat-grid">
-                <div class="stat-card icon-people"><span>在职人数</span><strong>18,732</strong><em>较上月 +312（+1.69%）</em></div>
-                <div class="stat-card icon-building"><span>部门数量</span><strong>156</strong><em>较上月 +3（+1.96%）</em></div>
-                <div class="stat-card icon-age"><span>平均年龄</span><strong>29.6 岁</strong><em>较上月 +0.3</em></div>
-                <div class="stat-card icon-brief"><span>中位司龄</span><strong>2.8 年</strong><em>较上月 +0.2</em></div>
-                <div class="stat-card icon-star"><span>新人占比</span><strong>28.4%</strong><em>较上月 +2.6pp</em></div>
-                <div class="stat-card icon-shield"><span>正式员工占比</span><strong>86.6%</strong><em>较上月 +0.8pp</em></div>
-                <div class="stat-card icon-team"><span>平均管理跨度</span><strong>7.2 人</strong><em>较上月 +0.3</em></div>
-                <div class="stat-card icon-share"><span>非正式用工占比</span><strong>8.7%</strong><em class="negative">较上月 -0.3pp</em></div>
-              </div>
-
-              <div class="overview-content">
-                <div class="chart-card">
-                  <h3>年龄结构</h3>
-                  <div class="vertical-bars">
-                    <span style="--h: 18%">18-24岁<p>6.2%</p></span>
-                    <span style="--h: 82%">25-29岁<p>31.4%</p></span>
-                    <span style="--h: 79%">30-34岁<p>30.7%</p></span>
-                    <span style="--h: 50%">35-39岁<p>18.3%</p></span>
-                    <span style="--h: 28%">40-44岁<p>9.1%</p></span>
-                    <span style="--h: 14%">45岁以上<p>4.3%</p></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h3>司龄结构</h3>
-                  <div class="vertical-bars cyan">
-                    <span style="--h: 76%">0-1年<p>28.4%</p></span>
-                    <span style="--h: 86%">1-3年<p>32.5%</p></span>
-                    <span style="--h: 54%">3-5年<p>19.7%</p></span>
-                    <span style="--h: 38%">5-10年<p>13.2%</p></span>
-                    <span style="--h: 18%">10年以上<p>6.2%</p></span>
-                  </div>
-                </div>
-                <aside class="signals-card">
-                  <h3>结构信号</h3>
-                  <div class="signal-box"><span>01</span><p>新人占比 28.4%，扩张仍在继续</p></div>
-                  <div class="signal-box"><span>02</span><p>产品与销售人数集中，组织重心明显</p></div>
-                  <div class="signal-box"><span>03</span><p>上海 / 北京 / 深圳仍是核心城市</p></div>
-                  <div class="signal-box"><span>04</span><p>正式员工占比较高，外包比例可控</p></div>
-                  <div class="signal-box"><span>05</span><p>个别部门管理跨度偏大，值得继续下钻</p></div>
-                </aside>
-
-                <div class="chart-card">
-                  <h3>城市分布 TOP10</h3>
-                  <div class="h-bars">
-                    <span style="--w: 100%">上海 <em>4,864</em></span>
-                    <span style="--w: 86%">北京 <em>4,254</em></span>
-                    <span style="--w: 68%">深圳 <em>3,310</em></span>
-                    <span style="--w: 40%">广州 <em>1,582</em></span>
-                    <span style="--w: 30%">杭州 <em>1,197</em></span>
-                    <span style="--w: 22%">成都 <em>886</em></span>
-                    <span style="--w: 17%">南京 <em>725</em></span>
-                    <span style="--w: 14%">武汉 <em>612</em></span>
-                    <span style="--w: 10%">苏州 <em>471</em></span>
-                    <span style="--w: 7%">西安 <em>370</em></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h3>用工类型</h3>
-                  <div class="donut-and-list">
-                    <div class="donut large" style="--segments: conic-gradient(#56c7ff 0 62%, #6f58ff 62% 78%, #ffca70 78% 86%, #8f5cff 86% 100%)">
-                      <span>18,732<br />在职人数</span>
-                    </div>
-                    <ul class="legend-list">
-                      <li><span class="dot c2"></span>正式员工 86.6%</li>
-                      <li><span class="dot c4"></span>外包 8.7%</li>
-                      <li><span class="dot c5"></span>实习生 3.1%</li>
-                      <li><span class="dot c3"></span>劳务派遣 1.6%</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h3>合同类型</h3>
-                  <div class="donut-and-list">
-                    <div class="donut large" style="--segments: conic-gradient(#5cb8ff 0 59%, #785dff 59% 95%, #f2a860 95% 99%, #80e0d2 99% 100%)"></div>
-                    <ul class="legend-list">
-                      <li><span class="dot c2"></span>无固定期限 59.2%</li>
-                      <li><span class="dot c4"></span>固定期限 35.8%</li>
-                      <li><span class="dot c5"></span>以项目一定工作任务为期限 4.0%</li>
-                      <li><span class="dot c3"></span>其他 1.0%</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="treemap-card">
-                <h3>部门人数热力图</h3>
-                <div class="treemap">
-                  <div class="tm big purple">产品与研发<br /><strong>4,258 人</strong><em>22.7%</em></div>
-                  <div class="tm big indigo">销售与市场<br /><strong>3,862 人</strong><em>20.6%</em></div>
-                  <div class="tm mid violet">运营与客户成功<br /><strong>2,214 人</strong><em>11.8%</em></div>
-                  <div class="tm mid blue">职能支持<br /><strong>1,986 人</strong><em>10.6%</em></div>
-                  <div class="tm small sky">设计中心<br /><strong>1,123 人</strong><em>6.0%</em></div>
-                  <div class="tm small indigo">供应链<br /><strong>923 人</strong><em>4.9%</em></div>
-                  <div class="tm small teal">财务<br /><strong>601 人</strong><em>3.2%</em></div>
-                  <div class="tm mini cyan">人力资源<br /><strong>532 人</strong><em>2.8%</em></div>
-                  <div class="tm mini cobalt">法务<br /><strong>219 人</strong><em>1.2%</em></div>
-                  <div class="tm mini deep">行政<br /><strong>128 人</strong><em>0.7%</em></div>
-                  <div class="tm mini dark">内审<br /><strong>72 人</strong><em>0.4%</em></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="screen-footer">在这一屏先看：规模 / 分布 / 密度 / 异常</div>
-        </section>
-
-        <section class="screen mapping-screen" id="mapping">
-          <div class="section-headline">
-            <p class="eyebrow orange">字段配置</p>
-            <h2>每家公司花名册都能用</h2>
-            <p>真正有用的地方，不是图表，而是配置能力。</p>
-          </div>
-
-          <div class="mapping-layout">
-            <div class="mapping-board">
-              <div class="mapping-columns">
-                <div class="mapping-column">
-                  <h3>原始字段（示例）</h3>
-                  <ul>
-                    <li>ID　员工编号</li>
-                    <li>姓名</li>
-                    <li>部门</li>
-                    <li>一级部门</li>
-                    <li>二级部门</li>
-                    <li>岗位名称</li>
-                    <li>职级</li>
-                    <li>入职时间</li>
-                    <li>出生日期</li>
-                    <li>工作城市</li>
-                    <li>性别</li>
-                    <li>直属上级</li>
-                    <li>合同类型</li>
-                    <li>用工形式</li>
-                    <li>在职状态</li>
-                  </ul>
-                </div>
-                <div class="mapping-arrows">
-                  <span>→</span><span>→</span><span>→</span><span>→</span><span>→</span>
-                  <span>→</span><span>→</span><span>→</span><span>→</span><span>→</span>
-                  <span>→</span><span>→</span><span>→</span><span>→</span><span>→</span>
-                </div>
-                <div class="mapping-column">
-                  <h3>映射为标准字段 <b>标准</b></h3>
-                  <ul>
-                    <li>ID　员工 ID</li>
-                    <li>姓名</li>
-                    <li>一级部门</li>
-                    <li>二级部门</li>
-                    <li>岗位名称</li>
-                    <li>岗位序列</li>
-                    <li>职级</li>
-                    <li>入职日期</li>
-                    <li>年龄 / 出生日期</li>
-                    <li>城市</li>
-                    <li>性别</li>
-                    <li>直属上级 ID</li>
-                    <li>合同类型</li>
-                    <li>用工形式</li>
-                    <li>在职状态</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <aside class="mapping-side">
-              <div class="side-panel orange-glow">
+            <aside class="rule-panels">
+              <article class="panel hot">
                 <h3>配置能力</h3>
-                <ul class="panel-list">
-                  <li>年龄分组可改</li>
-                  <li>司龄分组可改</li>
-                  <li>职级顺序可改</li>
-                  <li>部门层级可识别</li>
-                  <li>异常阈值可调</li>
-                  <li>小样本自动隐藏</li>
-                </ul>
-              </div>
-              <div class="side-panel">
+                <div class="check-list">
+                  <span>年龄分组可改</span>
+                  <span>司龄分组可改</span>
+                  <span>职级顺序可改</span>
+                  <span>部门层级可识别</span>
+                  <span>异常阈值可调</span>
+                  <span>小样本自动隐藏</span>
+                </div>
+              </article>
+              <article class="panel">
                 <h3>数据质量检查</h3>
-                <ul class="status-list">
-                  <li><span>缺失值检查</span><b class="ok">通过</b></li>
-                  <li><span>日期格式校验</span><b class="ok">通过</b></li>
-                  <li><span>重复员工 ID</span><b class="warn">警告</b></li>
-                  <li><span>花名册字段识别</span><b class="ok">通过</b></li>
-                </ul>
-              </div>
+                <div class="quality-list" id="qualityList"></div>
+              </article>
             </aside>
           </div>
-
-          <div class="bottom-banner">字段映射只需做一次，后续模板可复用。</div>
         </section>
 
-        <section class="screen analysis-screen" id="analysis">
-          <div class="section-headline">
-            <p class="eyebrow orange">下钻 + 深度分析</p>
-            <h2>点进部门，才开始有业务味</h2>
-            <p>不是只看人数，而是看它怎么长出来的。</p>
-          </div>
-
-          <div class="analysis-layout dashboard-frame">
-            <aside class="dashboard-sidebar analysis">
-              <button class="side-btn active">概览</button>
-              <button class="side-btn">组织</button>
-              <button class="side-btn">人力</button>
-              <button class="side-btn">人才</button>
-              <button class="side-btn">薪酬</button>
-              <button class="side-btn">编制</button>
-              <button class="side-btn active orange">分析</button>
-              <button class="side-btn">报表</button>
-              <button class="side-btn">设置</button>
-            </aside>
-
-            <div class="analysis-main">
-              <div class="toolbar">
-                <h3>全公司 / 销售中心</h3>
-                <div class="toolbar-actions">
-                  <button>2024-05</button>
-                  <button>对比：全公司</button>
-                  <button>导出</button>
-                </div>
-              </div>
-
-              <div class="stat-grid analysis-stats">
-                <div class="stat-card"><span>人数</span><strong>1,248</strong><em class="positive">高于公司平均 ↑</em></div>
-                <div class="stat-card"><span>平均年龄</span><strong>29.6 岁</strong><em class="positive">低于公司平均 ↓</em></div>
-                <div class="stat-card"><span>中位司龄</span><strong>1.8 年</strong><em class="positive">低于公司平均 ↓</em></div>
-                <div class="stat-card"><span>新人占比</span><strong>43.0%</strong><em class="negative">高于公司平均 ↑</em></div>
-                <div class="stat-card"><span>管理跨度</span><strong>1:12.4</strong><em class="negative">高于公司平均 ↑</em></div>
-                <div class="stat-card"><span>P4+ 占比</span><strong>32.6%</strong><em class="positive">低于公司平均 ↓</em></div>
-              </div>
-
-              <div class="analysis-grid">
-                <div class="chart-card">
-                  <h3>部门年龄结构</h3>
-                  <div class="donut-and-list">
-                    <div class="donut large" style="--segments: conic-gradient(#436dff 0 18.2%, #6d59ff 18.2% 58.3%, #66cf95 58.3% 83.6%, #f2a14a 83.6% 94.4%, #ffd36e 94.4% 100%)"></div>
-                    <ul class="legend-list">
-                      <li><span class="dot c2"></span>≤25岁 18.2%</li>
-                      <li><span class="dot c4"></span>26-30岁 40.1%</li>
-                      <li><span class="dot c3"></span>31-35岁 25.3%</li>
-                      <li><span class="dot c5"></span>36-40岁 10.8%</li>
-                      <li><span class="dot c1"></span>41岁+ 5.6%</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h3>部门司龄结构</h3>
-                  <div class="donut-and-list">
-                    <div class="donut large" style="--segments: conic-gradient(#436dff 0 43%, #7d60ff 43% 72.1%, #66cf95 72.1% 86.7%, #f2a14a 86.7% 96%, #ffd36e 96% 100%)"></div>
-                    <ul class="legend-list">
-                      <li><span class="dot c2"></span>0-1年 43.0%</li>
-                      <li><span class="dot c4"></span>1-3年 29.1%</li>
-                      <li><span class="dot c3"></span>3-5年 14.6%</li>
-                      <li><span class="dot c5"></span>5-10年 9.3%</li>
-                      <li><span class="dot c1"></span>10年以上 4.0%</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="chart-card tall">
-                  <h3>关键指标</h3>
-                  <div class="metric-stack">
-                    <div class="metric-line"><span>新人占比（0-1年占比）</span><strong>43.0%</strong><em>偏高</em></div>
-                    <div class="metric-line"><span>管理跨度</span><strong>1:12.4</strong><em>偏大</em></div>
-                    <div class="metric-line"><span>P4+ 占比（高阶人才占比）</span><strong>32.6%</strong><em>偏低</em></div>
-                    <div class="metric-line"><span>一线城市集中度</span><strong>68.3%</strong><em>偏高</em></div>
-                  </div>
-                </div>
-
-                <div class="chart-card">
-                  <h3>岗位序列 × 职级分布</h3>
-                  <div class="stack-bars compact-bars">
-                    <span style="--a: 8; --b: 4; --c: 2; --d: 1"></span>
-                    <span style="--a: 14; --b: 8; --c: 4; --d: 2"></span>
-                    <span style="--a: 24; --b: 14; --c: 8; --d: 3"></span>
-                    <span style="--a: 28; --b: 18; --c: 9; --d: 4"></span>
-                    <span style="--a: 22; --b: 16; --c: 8; --d: 3"></span>
-                    <span style="--a: 18; --b: 12; --c: 7; --d: 2"></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h3>城市分布</h3>
-                  <div class="h-bars">
-                    <span style="--w: 100%">上海 <em>36.7%</em></span>
-                    <span style="--w: 52%">北京 <em>18.9%</em></span>
-                    <span style="--w: 45%">深圳 <em>16.3%</em></span>
-                    <span style="--w: 24%">广州 <em>8.6%</em></span>
-                    <span style="--w: 18%">杭州 <em>5.9%</em></span>
-                    <span style="--w: 12%">成都 <em>4.2%</em></span>
-                    <span style="--w: 25%">其他 <em>9.4%</em></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h3>团队层级结构</h3>
-                  <div class="pyramid">
-                    <div style="--w: 24%">部门负责人 6（0.5%）</div>
-                    <div style="--w: 34%">总监 / 高级总监 17（1.4%）</div>
-                    <div style="--w: 52%">经理 104（8.3%）</div>
-                    <div style="--w: 72%">主管 241（19.3%）</div>
-                    <div style="--w: 100%">专员 / 员工 880（70.5%）</div>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h3>岗位序列 × 职级矩阵（人数密度）</h3>
-                  <div class="matrix">
-                    <div class="matrix-row header"><span></span><span>P1</span><span>P2</span><span>P3</span><span>P4</span><span>P5</span><span>P6</span><span>P7</span></div>
-                    <div class="matrix-row"><span>销售</span><b>0</b><b>8</b><b>68</b><b class="hot">142</b><b class="hot">128</b><b>54</b><b>16</b></div>
-                    <div class="matrix-row"><span>售前/解决方案</span><b>0</b><b>5</b><b>32</b><b class="hot">67</b><b>49</b><b>18</b><b>6</b></div>
-                    <div class="matrix-row"><span>客户成功</span><b>0</b><b>3</b><b>22</b><b>41</b><b>31</b><b>9</b><b>3</b></div>
-                    <div class="matrix-row"><span>运营支持</span><b>2</b><b>6</b><b>28</b><b>33</b><b>19</b><b>6</b><b>2</b></div>
-                    <div class="matrix-row"><span>职能</span><b>4</b><b>9</b><b>24</b><b>37</b><b>21</b><b>7</b><b>2</b></div>
-                  </div>
-                </div>
-                <aside class="chart-card insights">
-                  <h3>结构信号</h3>
-                  <ul class="insight-list">
-                    <li>新人占比高，团队扩张快</li>
-                    <li>管理跨度偏大，中层承接压力明显</li>
-                    <li>P4-P5 密度尚可，但高阶支撑不足</li>
-                    <li>一线城市集中度高，区域弹性较弱</li>
-                    <li>继续下钻查看岗位序列与城市切片</li>
-                  </ul>
-                </aside>
-              </div>
-
-              <div class="rule-strip">
-                <span>规则配置（可自定义）</span>
-                <b>P6+ &lt; 8%</b>
-                <b>P3-P5 &lt; 25%</b>
-                <b>管理跨度 &gt; 12</b>
-                <b>0-1年占比 &gt; 35%</b>
-                <button>配置规则</button>
-              </div>
+        <section class="view" id="overview" aria-labelledby="overview-title">
+          <div class="view-title split-title">
+            <div>
+              <p class="eyebrow purple">组织总览</p>
+              <h2 id="overview-title">第一屏先看全局</h2>
+              <p>先看组织规模、分布、密度和异常，再决定往哪个部门下钻。</p>
             </div>
+            <label class="select-label">
+              截止日期
+              <select id="overviewDate">
+                <option>2025-05-20</option>
+                <option>2025-04-20</option>
+                <option>2025-03-20</option>
+              </select>
+            </label>
           </div>
+
+          <div class="metric-grid" id="overviewMetrics"></div>
+
+          <div class="analysis-grid">
+            <article class="panel">
+              <h3>年龄结构</h3>
+              <div class="column-chart" id="ageChart"></div>
+            </article>
+            <article class="panel">
+              <h3>司龄结构</h3>
+              <div class="column-chart cyan" id="tenureChart"></div>
+            </article>
+            <article class="panel tall">
+              <h3>结构信号</h3>
+              <div class="signal-list" id="overviewSignals"></div>
+            </article>
+            <article class="panel">
+              <h3>城市分布 TOP10</h3>
+              <div class="bar-list" id="cityBars"></div>
+            </article>
+            <article class="panel">
+              <h3>用工类型</h3>
+              <div class="donut-layout">
+                <div class="donut" id="employmentDonut"></div>
+                <div class="legend" id="employmentLegend"></div>
+              </div>
+            </article>
+            <article class="panel">
+              <h3>合同类型</h3>
+              <div class="donut-layout">
+                <div class="donut" id="contractDonut"></div>
+                <div class="legend" id="contractLegend"></div>
+              </div>
+            </article>
+          </div>
+
+          <article class="panel">
+            <h3>部门人数热力图</h3>
+            <div class="treemap" id="departmentTreemap"></div>
+          </article>
         </section>
 
-        <section class="screen report-screen" id="report">
-          <div class="section-headline">
-            <p class="eyebrow orange">洞察输出</p>
-            <h2>把图表变成老板看得懂的话</h2>
-            <p>图表只是中间过程，最后要变成判断和动作。</p>
+        <section class="view" id="drilldown" aria-labelledby="drilldown-title">
+          <div class="view-title split-title">
+            <div>
+              <p class="eyebrow red">下钻 + 深度分析</p>
+              <h2 id="drilldown-title">点进部门，才开始有业务味</h2>
+              <p>不是只看人数，而是看它怎么长出来、哪里承压、哪里缺骨干。</p>
+            </div>
+            <label class="select-label">
+              当前部门
+              <select id="departmentSelect"></select>
+            </label>
+          </div>
+
+          <div class="metric-grid six" id="departmentMetrics"></div>
+
+          <div class="analysis-grid department-grid">
+            <article class="panel">
+              <h3>部门年龄结构</h3>
+              <div class="donut-layout">
+                <div class="donut" id="deptAgeDonut"></div>
+                <div class="legend" id="deptAgeLegend"></div>
+              </div>
+            </article>
+            <article class="panel">
+              <h3>部门司龄结构</h3>
+              <div class="donut-layout">
+                <div class="donut" id="deptTenureDonut"></div>
+                <div class="legend" id="deptTenureLegend"></div>
+              </div>
+            </article>
+            <article class="panel tall">
+              <h3>关键指标</h3>
+              <div class="risk-stack" id="departmentRisks"></div>
+            </article>
+            <article class="panel">
+              <h3>岗位序列 × 职级分布</h3>
+              <div class="stack-chart compact" id="levelStack"></div>
+            </article>
+            <article class="panel">
+              <h3>城市分布</h3>
+              <div class="bar-list" id="deptCityBars"></div>
+            </article>
+            <article class="panel">
+              <h3>团队层级结构</h3>
+              <div class="pyramid-chart" id="levelPyramid"></div>
+            </article>
+            <article class="panel wide">
+              <h3>岗位序列 × 职级矩阵（人数密度）</h3>
+              <div class="matrix" id="densityMatrix"></div>
+            </article>
+            <article class="panel">
+              <h3>结构信号</h3>
+              <div class="signal-list compact-list" id="departmentSignals"></div>
+            </article>
+          </div>
+
+          <div class="rule-strip" id="ruleStrip"></div>
+        </section>
+
+        <section class="view" id="insights" aria-labelledby="insights-title">
+          <div class="view-title split-title">
+            <div>
+              <p class="eyebrow red">洞察输出</p>
+              <h2 id="insights-title">把图表变成老板看得懂的话</h2>
+              <p>图表只是中间过程，最后要变成判断、风险和下一步动作。</p>
+            </div>
+            <button class="primary-btn" data-action="generate-report">重新生成摘要</button>
           </div>
 
           <div class="report-board">
-            <div class="toolbar">
+            <div class="report-header">
               <div>
                 <h3>组织结构洞察 · 执行摘要</h3>
-                <p>分析范围：全集团（截止 2025-05-18）</p>
+                <p id="reportScope">分析范围：全集团（截止 2025-05-18）</p>
               </div>
-              <div class="toolbar-actions">
-                <button>对比：2024-11-18</button>
-                <button>筛选</button>
-              </div>
+              <span class="ai-chip">老板版摘要</span>
             </div>
-
-            <div class="stat-grid report-stats">
-              <div class="stat-card"><span>总人数</span><strong>12,842</strong><em>较上期 ▲ 8.7%</em></div>
-              <div class="stat-card"><span>部门数</span><strong>298</strong><em>较上期 ▲ 3</em></div>
-              <div class="stat-card"><span>管理幅度（平均）</span><strong>11.2</strong><em class="negative">较上期 ▲ 0.6</em></div>
-              <div class="stat-card"><span>25-34 岁占比</span><strong>47.6%</strong><em>较上期 ▲ 4.2pct</em></div>
-              <div class="stat-card"><span>一线城市人员占比</span><strong>68.3%</strong><em>较上期 ▲ 1.9pct</em></div>
-            </div>
-
-            <div class="report-grid">
-              <div class="chart-card">
+            <div class="metric-row report" id="reportMetrics"></div>
+            <div class="report-chart-row">
+              <article class="panel">
                 <h3>年龄结构分布</h3>
-                <div class="donut-and-list">
-                  <div class="donut large" style="--segments: conic-gradient(#5ca5ff 0 15.2%, #ff6738 15.2% 62.8%, #ffae45 62.8% 87.6%, #84d272 87.6% 100%)"></div>
-                  <ul class="legend-list">
-                    <li><span class="dot c2"></span>25 岁以下 15.2%</li>
-                    <li><span class="dot c1"></span>25-34 岁 47.6%</li>
-                    <li><span class="dot c5"></span>35-44 岁 24.8%</li>
-                    <li><span class="dot c3"></span>45 岁以上 12.4%</li>
-                  </ul>
+                <div class="donut-layout">
+                  <div class="donut" id="reportAgeDonut"></div>
+                  <div class="legend" id="reportAgeLegend"></div>
                 </div>
-              </div>
-              <div class="chart-card">
-                <h3>各序列新人占比（≤ 1 年）</h3>
-                <div class="h-bars warm">
-                  <span style="--w: 100%">销售 <em>31.8%</em></span>
-                  <span style="--w: 92%">运营 <em>28.6%</em></span>
-                  <span style="--w: 55%">职能 <em>17.3%</em></span>
-                  <span style="--w: 38%">研发 <em>12.1%</em></span>
-                  <span style="--w: 33%">产品 <em>10.4%</em></span>
-                </div>
-              </div>
-              <div class="chart-card">
+              </article>
+              <article class="panel">
+                <h3>各序列新人占比</h3>
+                <div class="bar-list warm" id="newHireBars"></div>
+              </article>
+              <article class="panel">
                 <h3>职级结构分布</h3>
-                <div class="pyramid warm">
-                  <div style="--w: 32%">高层 2.8%</div>
-                  <div style="--w: 48%">中高层 15.1%</div>
-                  <div style="--w: 70%">中层 27.3%</div>
-                  <div style="--w: 100%">基层 54.8%</div>
-                </div>
-              </div>
-              <div class="chart-card">
-                <h3>城市人员分布（TOP10）</h3>
-                <div class="h-bars warm">
-                  <span style="--w: 100%">上海 <em>19.8%</em></span>
-                  <span style="--w: 84%">北京 <em>16.7%</em></span>
-                  <span style="--w: 67%">深圳 <em>12.9%</em></span>
-                  <span style="--w: 42%">广州 <em>7.8%</em></span>
-                  <span style="--w: 30%">杭州 <em>5.6%</em></span>
-                  <span style="--w: 20%">成都 <em>3.9%</em></span>
-                  <span style="--w: 16%">武汉 <em>3.2%</em></span>
-                  <span style="--w: 14%">南京 <em>2.9%</em></span>
-                  <span style="--w: 12%">苏州 <em>2.7%</em></span>
-                  <span style="--w: 10%">西安 <em>2.4%</em></span>
-                </div>
-              </div>
-
-              <div class="summary-card">
+                <div class="pyramid-chart warm" id="reportPyramid"></div>
+              </article>
+              <article class="panel">
+                <h3>城市人员分布</h3>
+                <div class="bar-list warm" id="reportCityBars"></div>
+              </article>
+            </div>
+            <div class="summary-grid">
+              <article class="summary-card">
                 <h3>关键发现</h3>
-                <ul class="insight-list">
-                  <li>组织整体年轻化，25-34 岁占比较高</li>
-                  <li>销售和运营新人占比偏高</li>
-                  <li>研发中高阶人才储备偏薄</li>
-                  <li>核心城市人员集中度较高</li>
-                </ul>
-              </div>
-              <div class="summary-card">
+                <ul id="findingsList"></ul>
+              </article>
+              <article class="summary-card">
                 <h3>结构风险</h3>
-                <ul class="insight-list">
-                  <li>管理跨度偏大</li>
-                  <li>部分序列中层断层</li>
-                  <li>局部团队非正式用工比例偏高</li>
-                  <li>部分城市人员密度高但骨干不足</li>
-                </ul>
-              </div>
-              <div class="summary-card">
+                <ul id="risksList"></ul>
+              </article>
+              <article class="summary-card">
                 <h3>建议动作</h3>
-                <ul class="insight-list">
-                  <li>先补关键骨干层</li>
-                  <li>给高扩张部门配置导师和带教机制</li>
-                  <li>把结构盘点接到招聘规划</li>
-                  <li>复盘核心城市的人才配置</li>
-                  <li>对高风险部门做二次下钻</li>
-                </ul>
-              </div>
-              <div class="summary-card export-card">
+                <ul id="actionsList"></ul>
+              </article>
+              <article class="summary-card export-card">
                 <h3>导出内容</h3>
-                <div class="export-list">
-                  <button>老板版摘要 PDF</button>
-                  <button>部门分析图 PNG</button>
-                  <button>结构信号清单 CSV</button>
-                  <button>清洗后数据 Excel</button>
-                  <button>复制部门复盘文字</button>
-                </div>
-              </div>
+                <button>老板版摘要 PDF</button>
+                <button>部门分析图 PNG</button>
+                <button>结构信号清单 CSV</button>
+                <button>清洗后数据 Excel</button>
+                <button>复制部门复盘文字</button>
+              </article>
             </div>
-
-            <div class="scenario-strip">
-              <span>适用场景</span>
-              <b>年度组织盘点</b>
-              <b>招聘规划</b>
-              <b>业务复盘</b>
-              <b>HRBP 汇报</b>
-              <b>管理诊断</b>
-            </div>
-
-            <div class="report-footer">本地运行 ｜ 敏感数据不上云 ｜ 只做聚合分析</div>
           </div>
         </section>
-      </main>
 
-      <div class="floating-nav">
-        <a href="#" data-label="03">Intro</a>
-        <a href="#overview" data-label="04">Overview</a>
-        <a href="#mapping" data-label="05">Mapping</a>
-        <a href="#analysis" data-label="06">Analysis</a>
-        <a href="#report" data-label="07">Report</a>
-      </div>
+        <section class="view" id="settings" aria-labelledby="settings-title">
+          <div class="view-title">
+            <p class="eyebrow red">规则配置</p>
+            <h2 id="settings-title">把“异常”变成可解释规则</h2>
+            <p>不同公司对管理跨度、职级断层、新人占比的容忍度不同，所以阈值必须能调整。</p>
+          </div>
+
+          <div class="settings-grid" id="settingsGrid"></div>
+        </section>
+      </main>
     </div>
 
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="./script.js"></script>
   </body>
 </html>
