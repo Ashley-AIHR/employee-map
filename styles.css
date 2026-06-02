@@ -238,6 +238,12 @@ input {
   background: #0d1525;
 }
 
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  height: auto;
+}
+
 .search-label {
   flex: 1;
   min-width: 260px;
@@ -595,6 +601,35 @@ tbody tr.selected {
   border: 1px dashed rgba(84, 232, 255, 0.36);
   border-radius: var(--radius);
   background: rgba(84, 232, 255, 0.05);
+}
+
+.validation-list {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.validation-list span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.validation-list span.ok b {
+  color: var(--green);
+}
+
+.validation-list span.warn b {
+  color: var(--yellow);
+}
+
+.validation-list span.bad b {
+  color: var(--red);
 }
 
 .toast {

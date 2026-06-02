@@ -4,6 +4,8 @@ const state = {
   search: "",
   contract: "全部",
   level: "全部",
+  sourceName: "Roster_2025_05.csv",
+  validation: [],
   mappingOpen: false,
   importOpen: false,
   selectedPersonId: "E1007",
@@ -14,7 +16,9 @@ const state = {
   }
 };
 
-const departments = [
+const storeKey = "employee-map-h5-state-v1";
+
+const defaultDepartments = [
   { id: "all", name: "Ashley AIHR", parent: null, head: "Ashley", people: 18732, open: 12, span: 7.2, newHire: 28.4, senior: 18.7, city: "全集团", budget: 19300 },
   { id: "prd", name: "产品与研发", parent: "all", head: "周然", people: 4258, open: 31, span: 7.8, newHire: 21.4, senior: 39.2, city: "上海", budget: 4380 },
   { id: "sales", name: "销售与市场", parent: "all", head: "林嘉", people: 3862, open: 56, span: 12.4, newHire: 43.0, senior: 32.6, city: "上海", budget: 3970 },
@@ -26,7 +30,7 @@ const departments = [
   { id: "enterprise", name: "大客户销售", parent: "sales", head: "孟夏", people: 1248, open: 18, span: 12.4, newHire: 43.0, senior: 32.6, city: "北京", budget: 1320 }
 ];
 
-const people = [
+const defaultPeople = [
   ["E1001", "周然", "产品与研发", "VP", "P7", "上海", "正式员工", "2019-04-12", "Ashley"],
   ["E1002", "顾骁", "平台工程", "总监", "P6", "上海", "正式员工", "2020-03-18", "周然"],
   ["E1003", "许诺", "设计中心", "总监", "P6", "杭州", "正式员工", "2021-01-09", "周然"],
@@ -41,7 +45,10 @@ const people = [
   ["E1012", "陆西", "运营与客户成功", "客户成功", "P3", "成都", "实习生", "2025-04-02", "陈晗"]
 ].map(([id, name, department, role, level, city, contract, hireDate, manager]) => ({ id, name, department, role, level, city, contract, hireDate, manager }));
 
-const fieldMap = [
+let departments = structuredClone(defaultDepartments);
+let people = structuredClone(defaultPeople);
+
+let fieldMap = [
   ["员工编号", "employee_id", "必填", "唯一员工标识"],
   ["姓名", "name", "必填", "员工姓名"],
   ["一级部门", "department_l1", "必填", "组织树第一层"],
@@ -63,6 +70,269 @@ const charts = {
 
 const root = document.querySelector("#app");
 
+loadFromStorage();
+
+function saveToStorage() {
+  localStorage.setItem(storeKey, JSON.stringify({
+    people,
+    departments,
+    fieldMap,
+    sourceName: state.sourceName,
+    rule: state.rule,
+    selectedDepartmentId: state.selectedDepartmentId,
+    selectedPersonId: state.selectedPersonId,
+    validation: state.validation
+  }));
+}
+
+function loadFromStorage() {
+  const raw = localStorage.getItem(storeKey);
+  if (!raw) {
+    departments = buildDepartments(people);
+    state.validation = validatePeople(people);
+    return;
+  }
+  try {
+    const saved = JSON.parse(raw);
+    people = Array.isArray(saved.people) && saved.people.length ? saved.people : people;
+    departments = Array.isArray(saved.departments) && saved.departments.length ? saved.departments : buildDepartments(people);
+    fieldMap = Array.isArray(saved.fieldMap) && saved.fieldMap.length ? saved.fieldMap : fieldMap;
+    state.sourceName = saved.sourceName || state.sourceName;
+    state.rule = { ...state.rule, ...(saved.rule || {}) };
+    state.selectedDepartmentId = saved.selectedDepartmentId || state.selectedDepartmentId;
+    state.selectedPersonId = saved.selectedPersonId || people[0]?.id || "";
+    state.validation = saved.validation || validatePeople(people);
+  } catch {
+    state.validation = validatePeople(people);
+  }
+}
+
+function resetSampleData() {
+  people = structuredClone(defaultPeople);
+  departments = buildDepartments(people);
+  state.sourceName = "Roster_2025_05.csv";
+  state.selectedDepartmentId = "all";
+  state.selectedPersonId = people[0]?.id || "";
+  state.validation = validatePeople(people);
+  saveToStorage();
+  setState({ importOpen: false, mappingOpen: false, view: "map" });
+  setTimeout(() => toast("已恢复内置样例数据。"));
+}
+
+function validatePeople(rows) {
+  const ids = new Set();
+  const duplicateIds = new Set();
+  let missingRequired = 0;
+  let invalidDates = 0;
+  rows.forEach(row => {
+    if (!row.id || !row.name || !row.department) missingRequired += 1;
+    if (row.id && ids.has(row.id)) duplicateIds.add(row.id);
+    if (row.id) ids.add(row.id);
+    if (row.hireDate && Number.isNaN(Date.parse(row.hireDate))) invalidDates += 1;
+  });
+  return [
+    { label: "员工记录", value: `${rows.length} 行`, tone: "ok" },
+    { label: "必填字段缺失", value: `${missingRequired} 行`, tone: missingRequired ? "bad" : "ok" },
+    { label: "重复员工ID", value: `${duplicateIds.size} 个`, tone: duplicateIds.size ? "warn" : "ok" },
+    { label: "日期格式异常", value: `${invalidDates} 行`, tone: invalidDates ? "warn" : "ok" }
+  ];
+}
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+    if (char === '"' && quoted && next === '"') {
+      cell += '"';
+      i += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      row.push(cell.trim());
+      cell = "";
+    } else if ((char === "\n" || char === "\r") && !quoted) {
+      if (char === "\r" && next === "\n") i += 1;
+      row.push(cell.trim());
+      if (row.some(Boolean)) rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += char;
+    }
+  }
+  row.push(cell.trim());
+  if (row.some(Boolean)) rows.push(row);
+  return rows;
+}
+
+function mapCSVRows(rows) {
+  if (rows.length < 2) return [];
+  const headers = rows[0].map(header => header.trim());
+  const aliases = {
+    id: ["employee_id", "员工ID", "员工编号", "id", "ID"],
+    name: ["name", "姓名", "员工姓名"],
+    department: ["department", "department_l2", "部门", "二级部门", "团队"],
+    role: ["job_title", "岗位名称", "岗位", "职位"],
+    level: ["level", "职级", "级别"],
+    city: ["city", "城市", "工作城市"],
+    contract: ["contract_type", "合同类型", "用工类型", "用工形式"],
+    hireDate: ["hire_date", "入职日期", "入职时间"],
+    manager: ["manager", "manager_id", "直属上级", "上级"]
+  };
+  const indexFor = key => headers.findIndex(header => aliases[key].some(alias => alias.toLowerCase() === header.toLowerCase()));
+  const index = Object.fromEntries(Object.keys(aliases).map(key => [key, indexFor(key)]));
+  return rows.slice(1).map((row, rowIndex) => ({
+    id: row[index.id] || `EMP${String(rowIndex + 1).padStart(4, "0")}`,
+    name: row[index.name] || `员工${rowIndex + 1}`,
+    department: row[index.department] || "未分配部门",
+    role: row[index.role] || "未填写岗位",
+    level: row[index.level] || "P3",
+    city: row[index.city] || "未填写城市",
+    contract: row[index.contract] || "正式员工",
+    hireDate: row[index.hireDate] || "2025-01-01",
+    manager: row[index.manager] || "未填写"
+  }));
+}
+
+function buildDepartments(rows) {
+  const grouped = rows.reduce((map, person) => {
+    if (!map.has(person.department)) map.set(person.department, []);
+    map.get(person.department).push(person);
+    return map;
+  }, new Map());
+  const total = rows.length || 1;
+  const rootDept = {
+    id: "all",
+    name: "全公司",
+    parent: null,
+    head: rows.find(person => person.level === "P7")?.name || rows[0]?.manager || "未设置",
+    people: rows.length,
+    open: Math.max(0, Math.round(rows.length * 0.03)),
+    span: averageSpan(rows),
+    newHire: newHireRatio(rows),
+    senior: seniorRatio(rows),
+    city: "全集团",
+    budget: Math.ceil(rows.length * 1.05)
+  };
+  const childDepts = [...grouped.entries()].map(([name, members], index) => ({
+    id: slugify(name) || `dept-${index + 1}`,
+    name,
+    parent: "all",
+    head: findDepartmentHead(members),
+    people: members.length,
+    open: Math.max(0, Math.round(members.length * 0.04)),
+    span: averageSpan(members),
+    newHire: newHireRatio(members),
+    senior: seniorRatio(members),
+    city: mode(members.map(person => person.city)) || "未填写",
+    budget: Math.ceil(members.length * 1.06)
+  }));
+  rootDept.open = childDepts.reduce((sum, dept) => sum + dept.open, 0);
+  rootDept.budget = Math.ceil(total * 1.05);
+  return [rootDept, ...childDepts];
+}
+
+function averageSpan(rows) {
+  const managerCounts = rows.reduce((map, person) => {
+    if (!person.manager || person.manager === "未填写") return map;
+    map.set(person.manager, (map.get(person.manager) || 0) + 1);
+    return map;
+  }, new Map());
+  if (!managerCounts.size) return 0;
+  const avg = [...managerCounts.values()].reduce((sum, count) => sum + count, 0) / managerCounts.size;
+  return Number(avg.toFixed(1));
+}
+
+function newHireRatio(rows) {
+  const cutoff = new Date("2024-06-01").getTime();
+  const count = rows.filter(person => Date.parse(person.hireDate) >= cutoff).length;
+  return Number(((count / Math.max(rows.length, 1)) * 100).toFixed(1));
+}
+
+function seniorRatio(rows) {
+  const count = rows.filter(person => ["P6", "P7", "P8"].includes(person.level)).length;
+  return Number(((count / Math.max(rows.length, 1)) * 100).toFixed(1));
+}
+
+function findDepartmentHead(rows) {
+  return rows.find(person => ["P7", "P6"].includes(person.level))?.name || rows[0]?.manager || rows[0]?.name || "未设置";
+}
+
+function mode(values) {
+  const counts = values.reduce((map, value) => map.set(value, (map.get(value) || 0) + 1), new Map());
+  return [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+}
+
+function slugify(text) {
+  let hash = 0;
+  [...text].forEach(char => {
+    hash = ((hash << 5) - hash) + char.charCodeAt(0);
+    hash |= 0;
+  });
+  return `dept-${Math.abs(hash)}`;
+}
+
+function rowsToCSV(rows) {
+  const headers = ["id", "name", "department", "role", "level", "city", "contract", "hireDate", "manager"];
+  const escape = value => `"${String(value ?? "").replaceAll('"', '""')}"`;
+  return [headers.join(","), ...rows.map(row => headers.map(key => escape(row[key])).join(","))].join("\n");
+}
+
+function reportPayload() {
+  const dept = selectedDepartment();
+  return {
+    generatedAt: new Date().toISOString(),
+    source: state.sourceName,
+    department: dept,
+    rules: state.rule,
+    metrics: {
+      people: dept.people,
+      budget: dept.budget,
+      budgetUsage: Math.round((dept.people / Math.max(dept.budget, 1)) * 100),
+      span: dept.span,
+      newHire: dept.newHire,
+      senior: dept.senior,
+      openRoles: dept.open
+    },
+    signals: signalFor(dept).map(([level, title, description]) => ({ level, title, description })),
+    employees: filterPeople()
+  };
+}
+
+function reportText() {
+  const payload = reportPayload();
+  const metric = payload.metrics;
+  return [
+    `${payload.department.name} 组织复盘`,
+    `数据源：${payload.source}`,
+    `在职人数 ${fmt(metric.people)} 人，编制使用率 ${metric.budgetUsage}%，开放岗位 ${metric.openRoles} 个。`,
+    `管理跨度 ${metric.span}，新人占比 ${metric.newHire}%，P6+ 占比 ${metric.senior}%。`,
+    "结构信号：",
+    ...payload.signals.map(item => `- [${item.level}] ${item.title}：${item.description}`)
+  ].join("\n");
+}
+
+function signalsCSV() {
+  const escape = value => `"${String(value).replaceAll('"', '""')}"`;
+  return ["level,title,description", ...signalFor(selectedDepartment()).map(row => row.map(escape).join(","))].join("\n");
+}
+
+function downloadFile(filename, content, type = "text/plain;charset=utf-8") {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
 function selectedDepartment() {
   return departments.find(dept => dept.id === state.selectedDepartmentId) || departments[0];
 }
@@ -73,6 +343,7 @@ function fmt(value) {
 
 function setState(patch) {
   Object.assign(state, patch);
+  saveToStorage();
   render();
 }
 
@@ -90,6 +361,35 @@ function filterPeople() {
     const text = `${person.id}${person.name}${person.department}${person.role}${person.city}`.toLowerCase();
     return inDepartment && inContract && inLevel && text.includes(state.search.toLowerCase());
   });
+}
+
+function peopleInDepartment(dept = selectedDepartment()) {
+  const allowedNames = new Set([dept.name, ...departmentChildren(dept.id).map(child => child.name)]);
+  return people.filter(person => dept.id === "all" || allowedNames.has(person.department));
+}
+
+function distributionRows(rows, key) {
+  const counts = rows.reduce((map, row) => map.set(row[key] || "未填写", (map.get(row[key] || "未填写") || 0) + 1), new Map());
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+}
+
+function percentDistributionRows(rows, key) {
+  const total = Math.max(rows.length, 1);
+  return distributionRows(rows, key).map(([label, count]) => [label, Number(((count / total) * 100).toFixed(1))]);
+}
+
+function tenureDistributionRows(rows) {
+  const buckets = { "0-1年": 0, "1-3年": 0, "3-5年": 0, "5年以上": 0 };
+  const now = new Date("2026-06-03").getTime();
+  rows.forEach(person => {
+    const years = (now - Date.parse(person.hireDate || "2025-01-01")) / (365 * 24 * 60 * 60 * 1000);
+    if (years < 1) buckets["0-1年"] += 1;
+    else if (years < 3) buckets["1-3年"] += 1;
+    else if (years < 5) buckets["3-5年"] += 1;
+    else buckets["5年以上"] += 1;
+  });
+  const total = Math.max(rows.length, 1);
+  return Object.entries(buckets).map(([label, count]) => [label, Number(((count / total) * 100).toFixed(1))]);
 }
 
 function signalFor(dept) {
@@ -139,8 +439,8 @@ function sidebar() {
         ${items.map(([id, label]) => `<button class="nav-button ${state.view === id ? "active" : ""}" data-view="${id}">${label}</button>`).join("")}
       </nav>
       <section class="source-card">
-        <div><span class="status-dot"></span><strong>Roster_2025_05.xlsx</strong></div>
-        <small>18,732 人 · 156 部门 · 10 字段已映射</small>
+        <div><span class="status-dot"></span><strong>${state.sourceName}</strong></div>
+        <small>${fmt(people.length)} 人 · ${departments.length - 1} 部门 · ${fieldMap.length} 字段已映射</small>
       </section>
     </aside>
   `;
@@ -156,7 +456,8 @@ function topbar(dept) {
       <div class="toolbar">
         <button class="secondary" data-action="open-import">导入数据</button>
         <button class="secondary" data-action="open-mapping">字段映射</button>
-        <button class="primary" data-action="export">导出当前视图</button>
+        <button class="secondary" data-action="reset-sample">恢复样例</button>
+        <button class="primary" data-action="export-csv">导出当前人员</button>
       </div>
     </header>
   `;
@@ -209,6 +510,7 @@ function metricCards(dept) {
 }
 
 function mapView(dept) {
+  const scopedPeople = peopleInDepartment(dept);
   return `
     ${metricCards(dept)}
     <section class="map-layout">
@@ -219,10 +521,10 @@ function mapView(dept) {
       <article class="panel">
         <div class="panel-head"><h2>部门画像</h2><small>${dept.head} · ${dept.city}</small></div>
         <div class="profile-grid">
-          ${donut("年龄结构", charts.age)}
-          ${donut("司龄结构", charts.tenure)}
-          ${barList("城市分布", charts.city)}
-          ${barList("职级密度", charts.level)}
+          ${donut("司龄结构", tenureDistributionRows(scopedPeople))}
+          ${donut("用工类型", percentDistributionRows(scopedPeople, "contract"))}
+          ${barList("城市分布", distributionRows(scopedPeople, "city"))}
+          ${barList("职级密度", percentDistributionRows(scopedPeople, "level"))}
         </div>
       </article>
       <article class="panel right-panel">
@@ -367,12 +669,12 @@ function exportsView(dept) {
         <ul>${summary.map(item => `<li>${item}</li>`).join("")}</ul>
       </article>
       <article class="panel">
-        <div class="panel-head"><h2>导出队列</h2><small>前端模拟生成</small></div>
+        <div class="panel-head"><h2>导出</h2><small>全部在浏览器内生成文件</small></div>
         <div class="export-buttons">
-          <button data-action="export">导出 PDF 摘要</button>
-          <button data-action="export">导出部门 PNG</button>
-          <button data-action="export">导出结构信号 CSV</button>
-          <button data-action="export">复制汇报文本</button>
+          <button data-action="export-report">下载管理摘要 JSON</button>
+          <button data-action="export-csv">下载当前人员 CSV</button>
+          <button data-action="export-signals">下载结构信号 CSV</button>
+          <button data-action="copy-report">复制汇报文本</button>
         </div>
       </article>
     </section>
@@ -402,18 +704,24 @@ function importDrawer() {
     <div class="drawer-backdrop" data-action="close-drawers">
       <aside class="drawer" data-stop>
         <h2>导入员工数据</h2>
-        <p>前端原型使用内置样例数据。真实产品中，这里会解析 Excel / CSV 并在浏览器内完成字段识别。</p>
+        <p>选择 CSV 文件后，浏览器会直接解析字段、生成员工清单、重建部门结构并保存到 localStorage。没有后端。</p>
         <div class="dropzone">
-          <strong>Roster_2025_05.xlsx</strong>
-          <span>18,732 rows · 10 recognized fields · 4 validation checks</span>
+          <strong>${state.sourceName}</strong>
+          <span>${fmt(people.length)} rows · ${departments.length - 1} departments · ${state.validation.filter(item => item.tone !== "ok").length} issues</span>
+          <input type="file" accept=".csv,text/csv" data-action="import-file" />
         </div>
-        <button class="primary" data-action="finish-import">应用样例数据</button>
+        <div class="validation-list">
+          ${state.validation.map(item => `<span class="${item.tone}"><b>${item.label}</b>${item.value}</span>`).join("")}
+        </div>
+        <button class="secondary" data-action="download-template">下载 CSV 模板</button>
+        <button class="primary" data-action="reset-sample">恢复内置样例</button>
       </aside>
     </div>
   `;
 }
 
 function mappingDrawer() {
+  const standardFields = ["employee_id", "name", "department_l1", "department_l2", "manager_id", "job_title", "level", "hire_date", "city", "contract_type", "ignore"];
   return `
     <div class="drawer-backdrop" data-action="close-drawers">
       <aside class="drawer wide" data-stop>
@@ -421,7 +729,7 @@ function mappingDrawer() {
         <p>把公司花名册字段映射为组织地图标准字段，后续导入可复用。</p>
         <table>
           <thead><tr><th>原始字段</th><th>标准字段</th><th>要求</th><th>用途</th></tr></thead>
-          <tbody>${fieldMap.map(([raw, standard, required, usage]) => `<tr><td>${raw}</td><td><select><option>${standard}</option></select></td><td>${required}</td><td>${usage}</td></tr>`).join("")}</tbody>
+          <tbody>${fieldMap.map(([raw, standard, required, usage], index) => `<tr><td>${raw}</td><td><select data-map-index="${index}">${standardFields.map(field => `<option ${field === standard ? "selected" : ""}>${field}</option>`).join("")}</select></td><td>${required}</td><td>${usage}</td></tr>`).join("")}</tbody>
         </table>
         <button class="primary" data-action="save-mapping">保存映射模板</button>
       </aside>
@@ -463,7 +771,40 @@ function bindEvents() {
   root.querySelectorAll("[data-rule]").forEach(input => {
     input.addEventListener("input", event => {
       state.rule[event.target.dataset.rule] = Number(event.target.value);
+      saveToStorage();
       render();
+    });
+  });
+  root.querySelectorAll("[data-map-index]").forEach(select => {
+    select.addEventListener("change", event => {
+      const index = Number(event.target.dataset.mapIndex);
+      fieldMap[index][1] = event.target.value;
+      saveToStorage();
+      toast("字段映射已更新。");
+    });
+  });
+  root.querySelectorAll('input[data-action="import-file"]').forEach(input => {
+    input.addEventListener("change", async event => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const text = await file.text();
+      const parsedRows = parseCSV(text);
+      const mappedPeople = mapCSVRows(parsedRows);
+      if (!mappedPeople.length) {
+        toast("CSV 没有可导入的数据行。");
+        return;
+      }
+      people = mappedPeople;
+      departments = buildDepartments(people);
+      state.sourceName = file.name;
+      state.selectedDepartmentId = "all";
+      state.selectedPersonId = people[0]?.id || "";
+      state.validation = validatePeople(people);
+      state.importOpen = false;
+      state.view = "map";
+      saveToStorage();
+      render();
+      setTimeout(() => toast(`已导入 ${fmt(people.length)} 条员工记录。`));
     });
   });
   root.querySelectorAll("[data-action]").forEach(button => {
@@ -472,15 +813,24 @@ function bindEvents() {
       if (action === "open-import") setState({ importOpen: true });
       if (action === "open-mapping") setState({ mappingOpen: true });
       if (action === "close-drawers") setState({ importOpen: false, mappingOpen: false });
-      if (action === "finish-import") {
-        setState({ importOpen: false });
-        setTimeout(() => toast("样例数据已应用，组织地图已刷新。"));
-      }
+      if (action === "reset-sample") resetSampleData();
       if (action === "save-mapping") {
+        saveToStorage();
         setState({ mappingOpen: false });
         setTimeout(() => toast("字段映射模板已保存。"));
       }
-      if (action === "export") toast("已生成前端导出任务。");
+      if (action === "download-template") downloadFile("employee-map-template.csv", rowsToCSV(defaultPeople), "text/csv;charset=utf-8");
+      if (action === "export-csv") downloadFile(`${selectedDepartment().name}-employees.csv`, rowsToCSV(filterPeople()), "text/csv;charset=utf-8");
+      if (action === "export-report") downloadFile(`${selectedDepartment().name}-report.json`, JSON.stringify(reportPayload(), null, 2), "application/json;charset=utf-8");
+      if (action === "export-signals") downloadFile(`${selectedDepartment().name}-signals.csv`, signalsCSV(), "text/csv;charset=utf-8");
+      if (action === "copy-report") {
+        navigator.clipboard?.writeText(reportText())
+          .then(() => toast("汇报文本已复制。"))
+          .catch(() => {
+            downloadFile(`${selectedDepartment().name}-report.txt`, reportText(), "text/plain;charset=utf-8");
+            toast("浏览器未开放剪贴板权限，已改为下载文本。");
+          });
+      }
       event.stopPropagation();
     });
   });
