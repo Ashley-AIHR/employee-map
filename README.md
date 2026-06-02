@@ -1,14 +1,15 @@
 # Employee Map
 
-Interactive AIHR-style employee map prototype based on the provided product design references.
+Interactive JS-only front-end prototype for an employee map product.
 
-The prototype models the actual product flow behind the screenshots:
+The prototype models the actual employee-map workflow:
 
-- Upload a roster and normalize fields into a reusable employee data model
+- Import a roster and normalize fields into a reusable employee data model
 - Map inconsistent company roster columns into standard organization fields
-- Review whole-company structure signals before drilling down
-- Drill into a department to inspect age, tenure, city, level density, and management span
-- Generate an executive summary with findings, risks, recommended actions, and export options
+- Browse an organization tree and switch department context
+- Filter the employee table by department, contract type, level, and search text
+- Inspect department metrics, people records, open positions, and structure signals
+- Adjust front-end rule thresholds and simulate exports
 
 ## Local preview
 
@@ -22,6 +23,6 @@ Then open `http://127.0.0.1:4173`.
 
 ## Structure
 
-- `index.html`: product shell and screen structure
+- `index.html`: minimal app mount point
 - `styles.css`: dashboard visual system and responsive layout
-- `script.js`: sample org data, rendering logic, navigation, department switching, and report actions
+- `script.js`: all sample data, state, rendering, navigation, filters, drawers, rules, and export simulation
