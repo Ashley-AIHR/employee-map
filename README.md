@@ -1,6 +1,6 @@
 # Employee Map
 
-Interactive JS-only front-end prototype for an employee map product.
+Interactive JS-only front-end prototype for an employee map product. The built-in sample is a deterministic 640-person company roster, so every page starts with realistic 500+ employee scale even before importing a file.
 
 The prototype models the actual employee-map workflow:
 
@@ -12,6 +12,8 @@ The prototype models the actual employee-map workflow:
 - Adjust front-end rule thresholds and immediately refresh structure signals
 - Persist imported data, mapping selections, and rules in `localStorage`
 - Generate CSV / JSON / text exports directly in the browser
+
+The sample roster includes eight departments, department heads, individual employee IDs, managers, job titles, cities, contract types, levels, hire dates, validation status, and derived budget/open-HC signals.
 
 ## Local preview
 

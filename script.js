@@ -4,7 +4,7 @@ const state = {
   search: "",
   contract: "全部",
   level: "全部",
-  sourceName: "Roster_2025_05.csv",
+  sourceName: "Ashley_AIHR_640_roster.csv",
   validation: [],
   mappingOpen: false,
   importOpen: false,
@@ -16,37 +16,103 @@ const state = {
   }
 };
 
-const storeKey = "employee-map-h5-state-v1";
+const storeKey = "employee-map-h5-state-v3";
 
-const defaultDepartments = [
-  { id: "all", name: "Ashley AIHR", parent: null, head: "Ashley", people: 18732, open: 12, span: 7.2, newHire: 28.4, senior: 18.7, city: "全集团", budget: 19300 },
-  { id: "prd", name: "产品与研发", parent: "all", head: "周然", people: 4258, open: 31, span: 7.8, newHire: 21.4, senior: 39.2, city: "上海", budget: 4380 },
-  { id: "sales", name: "销售与市场", parent: "all", head: "林嘉", people: 3862, open: 56, span: 12.4, newHire: 43.0, senior: 32.6, city: "上海", budget: 3970 },
-  { id: "ops", name: "运营与客户成功", parent: "all", head: "陈晗", people: 2214, open: 22, span: 9.6, newHire: 28.6, senior: 24.8, city: "北京", budget: 2300 },
-  { id: "func", name: "职能支持", parent: "all", head: "何青", people: 1986, open: 13, span: 8.4, newHire: 17.3, senior: 21.5, city: "深圳", budget: 2050 },
-  { id: "design", name: "设计中心", parent: "prd", head: "许诺", people: 1123, open: 9, span: 6.4, newHire: 18.8, senior: 28.1, city: "杭州", budget: 1160 },
-  { id: "platform", name: "平台工程", parent: "prd", head: "顾骁", people: 1732, open: 15, span: 8.2, newHire: 23.1, senior: 44.5, city: "上海", budget: 1780 },
-  { id: "growth", name: "增长销售", parent: "sales", head: "罗一", people: 1840, open: 34, span: 14.1, newHire: 46.2, senior: 30.4, city: "上海", budget: 1900 },
-  { id: "enterprise", name: "大客户销售", parent: "sales", head: "孟夏", people: 1248, open: 18, span: 12.4, newHire: 43.0, senior: 32.6, city: "北京", budget: 1320 }
-];
+const seededCompany = {
+  departments: [
+    { name: "产品与研发", head: "周然", roles: ["产品经理", "前端工程师", "后端工程师", "算法工程师", "测试工程师", "架构师"], weight: 112 },
+    { name: "平台工程", head: "顾骁", roles: ["平台工程师", "SRE", "数据工程师", "安全工程师", "技术经理"], weight: 78 },
+    { name: "设计中心", head: "许诺", roles: ["体验设计师", "视觉设计师", "用户研究员", "设计经理"], weight: 46 },
+    { name: "销售与市场", head: "林嘉", roles: ["销售经理", "市场运营", "渠道经理", "销售总监", "商务拓展"], weight: 118 },
+    { name: "增长销售", head: "罗一", roles: ["客户经理", "增长顾问", "销售运营", "区域经理"], weight: 86 },
+    { name: "大客户销售", head: "孟夏", roles: ["大客户经理", "解决方案顾问", "售前顾问", "客户总监"], weight: 74 },
+    { name: "运营与客户成功", head: "陈晗", roles: ["客户成功经理", "运营专员", "交付经理", "服务顾问"], weight: 82 },
+    { name: "职能支持", head: "何青", roles: ["HRBP", "招聘经理", "财务分析师", "法务专员", "行政经理"], weight: 44 }
+  ],
+  cities: ["上海", "北京", "深圳", "广州", "杭州", "成都", "南京", "武汉", "西安", "苏州"],
+  surnames: "赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜谢邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳鲍史唐费薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧尹",
+  given: ["然", "骁", "诺", "嘉", "一", "夏", "清", "晗", "青", "柏", "澈", "西", "宁", "雨", "可", "沐", "禾", "川", "岚", "舟", "言", "远", "知", "予", "乔", "星", "北", "南", "森", "白", "辰", "越"]
+};
 
-const defaultPeople = [
-  ["E1001", "周然", "产品与研发", "VP", "P7", "上海", "正式员工", "2019-04-12", "Ashley"],
-  ["E1002", "顾骁", "平台工程", "总监", "P6", "上海", "正式员工", "2020-03-18", "周然"],
-  ["E1003", "许诺", "设计中心", "总监", "P6", "杭州", "正式员工", "2021-01-09", "周然"],
-  ["E1004", "林嘉", "销售与市场", "VP", "P7", "上海", "正式员工", "2018-11-06", "Ashley"],
-  ["E1005", "罗一", "增长销售", "高级经理", "P5", "上海", "正式员工", "2023-08-20", "林嘉"],
-  ["E1006", "孟夏", "大客户销售", "高级经理", "P5", "北京", "正式员工", "2024-02-15", "林嘉"],
-  ["E1007", "韩清", "增长销售", "销售经理", "P4", "深圳", "正式员工", "2025-01-06", "罗一"],
-  ["E1008", "陈晗", "运营与客户成功", "总监", "P6", "北京", "正式员工", "2021-09-17", "Ashley"],
-  ["E1009", "何青", "职能支持", "总监", "P6", "深圳", "正式员工", "2020-07-01", "Ashley"],
-  ["E1010", "苏柏", "平台工程", "工程师", "P4", "上海", "外包", "2024-10-10", "顾骁"],
-  ["E1011", "程澈", "大客户销售", "客户经理", "P4", "广州", "正式员工", "2025-03-21", "孟夏"],
-  ["E1012", "陆西", "运营与客户成功", "客户成功", "P3", "成都", "实习生", "2025-04-02", "陈晗"]
-].map(([id, name, department, role, level, city, contract, hireDate, manager]) => ({ id, name, department, role, level, city, contract, hireDate, manager }));
+function generateDefaultPeople(total = 640) {
+  const peopleRows = [];
+  seededCompany.departments.forEach((department, deptIndex) => {
+    const leaderId = `E${String(1001 + peopleRows.length).padStart(4, "0")}`;
+    peopleRows.push({
+      id: leaderId,
+      name: department.head,
+      department: department.name,
+      role: deptIndex < 4 ? "VP" : "总监",
+      level: deptIndex < 4 ? "P7" : "P6",
+      city: seededCompany.cities[deptIndex % seededCompany.cities.length],
+      contract: "正式员工",
+      hireDate: `2019-${String((deptIndex % 9) + 1).padStart(2, "0")}-12`,
+      manager: "Ashley"
+    });
+  });
 
-let departments = structuredClone(defaultDepartments);
+  let deptCursor = 0;
+  while (peopleRows.length < total) {
+    const dept = seededCompany.departments[deptCursor % seededCompany.departments.length];
+    const localIndex = peopleRows.filter(person => person.department === dept.name).length;
+    if (localIndex < dept.weight) {
+      const absoluteIndex = peopleRows.length;
+      const id = `E${String(1001 + absoluteIndex).padStart(4, "0")}`;
+      const surname = seededCompany.surnames[absoluteIndex % seededCompany.surnames.length];
+      const name = `${surname}${seededCompany.given[(absoluteIndex * 7) % seededCompany.given.length]}`;
+      const level = levelFor(localIndex, dept.name);
+      const contract = contractFor(absoluteIndex, dept.name);
+      const hireDate = hireDateFor(absoluteIndex, level);
+      peopleRows.push({
+        id,
+        name,
+        department: dept.name,
+        role: dept.roles[absoluteIndex % dept.roles.length],
+        level,
+        city: seededCompany.cities[(absoluteIndex + deptCursor) % seededCompany.cities.length],
+        contract,
+        hireDate,
+        manager: managerFor(peopleRows, dept.name, level, dept.head)
+      });
+    }
+    deptCursor += 1;
+  }
+  return peopleRows;
+}
+
+function levelFor(index, department) {
+  if (index % 97 === 0) return "P7";
+  if (index % 31 === 0 || ["产品与研发", "平台工程"].includes(department) && index % 17 === 0) return "P6";
+  if (index % 7 === 0) return "P5";
+  if (index % 3 === 0) return "P4";
+  if (index % 5 === 0) return "P2";
+  return "P3";
+}
+
+function contractFor(index, department) {
+  if (department === "职能支持" && index % 11 === 0) return "外包";
+  if (index % 29 === 0) return "实习生";
+  if (index % 13 === 0) return "外包";
+  return "正式员工";
+}
+
+function hireDateFor(index, level) {
+  const year = level === "P7" ? 2018 : level === "P6" ? 2020 + (index % 3) : 2021 + (index % 5);
+  const month = String((index % 12) + 1).padStart(2, "0");
+  const day = String((index % 27) + 1).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function managerFor(rows, department, level, fallback) {
+  if (["P7", "P6"].includes(level)) return fallback;
+  const candidates = rows.filter(person => person.department === department && ["P7", "P6", "P5"].includes(person.level));
+  return candidates[candidates.length ? rows.length % candidates.length : 0]?.name || fallback;
+}
+
+const defaultPeople = generateDefaultPeople();
+
 let people = structuredClone(defaultPeople);
+let departments = buildDepartments(people);
 
 let fieldMap = [
   ["员工编号", "employee_id", "必填", "唯一员工标识"],
@@ -110,7 +176,7 @@ function loadFromStorage() {
 function resetSampleData() {
   people = structuredClone(defaultPeople);
   departments = buildDepartments(people);
-  state.sourceName = "Roster_2025_05.csv";
+  state.sourceName = "Ashley_AIHR_640_roster.csv";
   state.selectedDepartmentId = "all";
   state.selectedPersonId = people[0]?.id || "";
   state.validation = validatePeople(people);
@@ -619,21 +685,40 @@ function personPanel() {
   `;
 }
 
+function primaryHiringRole(departmentName) {
+  const roleByDepartment = {
+    产品与研发: "后端工程师",
+    平台工程: "SRE",
+    设计中心: "体验设计师",
+    销售与市场: "销售经理",
+    增长销售: "客户经理",
+    大客户销售: "解决方案顾问",
+    运营与客户成功: "客户成功经理",
+    职能支持: "HRBP"
+  };
+  return roleByDepartment[departmentName] || "业务关键岗位";
+}
+
 function positionsView(dept) {
-  const openRoles = [
-    ["增长销售", "客户经理", 18, "高"],
-    ["平台工程", "前端工程师", 7, "中"],
-    ["大客户销售", "解决方案顾问", 9, "高"],
-    ["运营与客户成功", "客户成功经理", 6, "中"],
-    ["职能支持", "HRBP", 4, "低"]
-  ];
+  const openRoles = (dept.id === "all" ? departments.filter(item => item.id !== "all") : [dept, ...departmentChildren(dept.id)])
+    .filter((item, index, rows) => item.id !== "all" && rows.findIndex(row => row.id === item.id) === index)
+    .map(item => {
+      const risk = item.open > 16 || item.span > state.rule.maxSpan ? "高" : item.open > 8 ? "中" : "低";
+      const action = risk === "高"
+        ? "同步招聘优先级与用人经理复盘"
+        : risk === "中"
+          ? "保持周度跟进，确认到岗节奏"
+          : "维持编制观察";
+      return [item.name, primaryHiringRole(item.name), item.open, risk, action];
+    })
+    .sort((a, b) => b[2] - a[2]);
   return `
     ${metricCards(dept)}
     <section class="panel table-panel">
       <div class="panel-head"><h2>编制与空缺</h2><small>按岗位跟踪预算、在岗与开放 HC</small></div>
       <table>
         <thead><tr><th>部门</th><th>岗位</th><th>开放HC</th><th>风险</th><th>建议动作</th></tr></thead>
-        <tbody>${openRoles.map(([team, role, open, risk]) => `<tr><td>${team}</td><td>${role}</td><td>${open}</td><td><span class="risk ${risk}">${risk}</span></td><td>${risk === "高" ? "同步招聘优先级与用人经理复盘" : "保持周度跟进"}</td></tr>`).join("")}</tbody>
+        <tbody>${openRoles.map(([team, role, open, risk, action]) => `<tr><td>${team}</td><td>${role}</td><td>${open}</td><td><span class="risk ${risk}">${risk}</span></td><td>${action}</td></tr>`).join("")}</tbody>
       </table>
     </section>
   `;
