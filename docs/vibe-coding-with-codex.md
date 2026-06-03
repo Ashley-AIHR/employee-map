@@ -1,12 +1,16 @@
 # Vibe Coding With Codex
 
-This tutorial has been expanded into a chapter-based bilingual structure.
+This tutorial documents one real project arc: starting from polished design references, correcting a shallow first pass, turning the build into a usable front-end-only product, validating it locally, publishing it to GitHub, and then distilling the collaboration into a teachable structure.
 
-本教程已经升级成按章节组织的双语结构。
+这套教程讲的不是抽象心得，而是一条真实项目主线：从一组成熟设计图开始，纠正第一版的浅层实现，把它推成一个真正可用的纯前端产品，再经过本地验证、发布到 GitHub，最后把整个过程沉淀成别人也能学会的结构。
 
-## Start here / 从这里开始
+## Recommended reading path / 建议阅读顺序
 
-### English
+If you want the strongest narrative flow, read the Chinese chapters in order first, then use the appendix as evidence.
+
+如果你想先看到最完整、最顺的故事线，建议先按顺序读中文章节，再回头看附录里的证据层。
+
+## English
 
 - [Chapter 01 - What We Were Actually Building](vibe-coding-with-codex/en/01-what-we-were-actually-building.md)
 - [Chapter 02 - Why The First Output Was Wrong](vibe-coding-with-codex/en/02-why-the-first-output-was-wrong.md)
@@ -19,7 +23,7 @@ This tutorial has been expanded into a chapter-based bilingual structure.
 - [Chapter 09 - Publishing To GitHub And Documenting The Project](vibe-coding-with-codex/en/09-publishing-to-github-and-documenting-the-project.md)
 - [Chapter 10 - Reusable Prompting Patterns For Your Own Project](vibe-coding-with-codex/en/10-reusable-prompting-patterns-for-your-own-project.md)
 
-### 中文
+## 中文主线
 
 - [第 01 章：我们到底在做什么产品](vibe-coding-with-codex/zh/01-我们到底在做什么产品.md)
 - [第 02 章：为什么第一版输出是错的](vibe-coding-with-codex/zh/02-为什么第一版输出是错的.md)
@@ -32,6 +36,11 @@ This tutorial has been expanded into a chapter-based bilingual structure.
 - [第 09 章：怎么发到 GitHub 并把项目讲清楚](vibe-coding-with-codex/zh/09-怎么发到GitHub并把项目讲清楚.md)
 - [第 10 章：你可以复用的提示词与协作方法](vibe-coding-with-codex/zh/10-你可以复用的提示词与协作方法.md)
 
+## Evidence appendices / 证据附录
+
+- [English appendix: real chat checkpoints and concrete data examples](vibe-coding-with-codex/en/appendix-real-chat-checkpoints.md)
+- [中文附录：真实聊天节点与具体数据案例](vibe-coding-with-codex/zh/appendix-真实聊天节点与具体数据案例.md)
+
 ## Repo context / 仓库上下文
 
 - GitHub: [Ashley-AIHR/employee-map](https://github.com/Ashley-AIHR/employee-map)
@@ -39,11 +48,6 @@ This tutorial has been expanded into a chapter-based bilingual structure.
 - App entry: `index.html`
 - Main logic: `script.js`
 
-## Evidence appendices / 证据附录
+This project remains intentionally a learning project and a front-end-only prototype.
 
-- [English appendix: real chat checkpoints and concrete data examples](vibe-coding-with-codex/en/appendix-real-chat-checkpoints.md)
-- [中文附录：真实聊天节点与具体数据案例](vibe-coding-with-codex/zh/appendix-真实聊天节点与具体数据案例.md)
-
-This project is intentionally a learning project and a front-end-only prototype.
-
-这个项目刻意被保留为学习型项目和纯前端原型。
+这个项目依然刻意保持为学习型项目和纯前端原型。
