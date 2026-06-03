@@ -15,6 +15,13 @@ The prototype models the actual employee-map workflow:
 
 The sample roster includes eight departments, department heads, individual employee IDs, managers, job titles, cities, contract types, levels, hire dates, validation status, and derived budget/open-HC signals.
 
+## Codex tutorial
+
+This repo now includes a practical tutorial on how the project was vibe-coded with Codex using the real interactive development flow: reference images, user corrections, realistic data, import logic, verification, and GitHub publication.
+
+- `docs/vibe-coding-with-codex.md`: step-by-step tutorial based on the real project history
+- `outputs/test-employee-map-import.csv`: test import file for trying the app quickly
+
 ## Local preview
 
 Run a simple static server from the repo root:
