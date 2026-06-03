@@ -168,6 +168,29 @@ small,
   margin-bottom: 16px;
 }
 
+.project-intro {
+  max-width: 760px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.project-intro p {
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+
+.project-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.project-intro strong,
+.project-intro code {
+  color: var(--text);
+}
+
 h1,
 h2,
 h3,

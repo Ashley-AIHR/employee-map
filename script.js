@@ -518,6 +518,11 @@ function topbar(dept) {
       <div>
         <p class="crumb">组织地图 / ${dept.name}</p>
         <h1>${dept.name}</h1>
+        <div class="project-intro">
+          <p><strong>Learning project / 学习型项目</strong></p>
+          <p>This is a browser-only Employee Map prototype built with Codex. Try the built-in 640-person sample or import <code>outputs/test-employee-map-import.csv</code>.</p>
+          <p>这是一个用 Codex 做出来的纯前端 Employee Map 学习项目。你可以先体验内置 640 人样例，或者导入 <code>outputs/test-employee-map-import.csv</code> 进行测试。</p>
+        </div>
       </div>
       <div class="toolbar">
         <button class="secondary" data-action="open-import">导入数据</button>

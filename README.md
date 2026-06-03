@@ -2,6 +2,26 @@
 
 Interactive JS-only front-end prototype for an employee map product. The built-in sample is a deterministic 640-person company roster, so every page starts with realistic 500+ employee scale even before importing a file.
 
+**Learning project / 学习型项目**
+
+This repository is a learning project about turning strong visual references into a usable front-end-only product prototype with Codex. It is intentionally built as a browser-first demo for exploration, iteration, and product thinking.
+
+这个仓库是一个学习型项目，目标是用 Codex 把一组强视觉参考图，真正落成一个“前端可用”的产品原型。它被刻意做成浏览器优先的演示系统，用来练习产品拆解、交互实现、数据建模和快速迭代。
+
+## Mini how-to / 快速上手
+
+1. Start a local server from the repo root: `python3 -m http.server 4173`
+2. Open `http://127.0.0.1:4173`
+3. Try the built-in 640-person sample first
+4. Click `导入数据` and import `outputs/test-employee-map-import.csv`
+5. Switch departments, open `结构信号`, and export CSV / JSON outputs
+
+1. 在仓库根目录启动本地服务：`python3 -m http.server 4173`
+2. 打开 `http://127.0.0.1:4173`
+3. 先体验内置的 640 人样例数据
+4. 点击 `导入数据`，导入 `outputs/test-employee-map-import.csv`
+5. 切换部门，查看 `结构信号`，并测试 CSV / JSON 导出
+
 The prototype models the actual employee-map workflow:
 
 - Import a roster and normalize fields into a reusable employee data model
