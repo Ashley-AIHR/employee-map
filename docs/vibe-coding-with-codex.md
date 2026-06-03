@@ -25,16 +25,16 @@ If you want the strongest narrative flow, read the Chinese chapters in order fir
 
 ## 中文主线
 
-- [第 01 章：我们到底在做什么产品](vibe-coding-with-codex/zh/01-我们到底在做什么产品.md)
-- [第 02 章：为什么第一版输出是错的](vibe-coding-with-codex/zh/02-为什么第一版输出是错的.md)
-- [第 03 章：怎么把设计语言翻译成产品能力](vibe-coding-with-codex/zh/03-怎么把设计语言翻译成产品能力.md)
-- [第 04 章：怎么定义纯前端架构](vibe-coding-with-codex/zh/04-怎么定义纯前端架构.md)
-- [第 05 章：怎么设计数据模型和样例公司](vibe-coding-with-codex/zh/05-怎么设计数据模型和样例公司.md)
-- [第 06 章：怎么让 CSV 导入真的可用](vibe-coding-with-codex/zh/06-怎么让CSV导入真的可用.md)
-- [第 07 章：怎么做真的下钻和可解释层](vibe-coding-with-codex/zh/07-怎么做真的下钻和可解释层.md)
-- [第 08 章：怎么用 Codex 做测试、校验与调试](vibe-coding-with-codex/zh/08-怎么用Codex做测试校验与调试.md)
-- [第 09 章：怎么发到 GitHub 并把项目讲清楚](vibe-coding-with-codex/zh/09-怎么发到GitHub并把项目讲清楚.md)
-- [第 10 章：你可以复用的提示词与协作方法](vibe-coding-with-codex/zh/10-你可以复用的提示词与协作方法.md)
+- [第 01 章：明确案例目标与产品范围](vibe-coding-with-codex/zh/01-明确案例目标与产品范围.md)
+- [第 02 章：拆出核心模块与工作流](vibe-coding-with-codex/zh/02-拆出核心模块与工作流.md)
+- [第 03 章：搭建前端骨架与页面结构](vibe-coding-with-codex/zh/03-搭建前端骨架与页面结构.md)
+- [第 04 章：设计员工与部门数据模型](vibe-coding-with-codex/zh/04-设计员工与部门数据模型.md)
+- [第 05 章：生成 640 人样例公司数据](vibe-coding-with-codex/zh/05-生成640人样例公司数据.md)
+- [第 06 章：实现 CSV 导入与字段映射](vibe-coding-with-codex/zh/06-实现CSV导入与字段映射.md)
+- [第 07 章：做出部门下钻、结构信号与导出](vibe-coding-with-codex/zh/07-做出部门下钻结构信号与导出.md)
+- [第 08 章：完成测试、校验与本地验证](vibe-coding-with-codex/zh/08-完成测试校验与本地验证.md)
+- [第 09 章：整理 GitHub 仓库与双语文档](vibe-coding-with-codex/zh/09-整理GitHub仓库与双语文档.md)
+- [第 10 章：沉淀可复用的 Codex 提示词流程](vibe-coding-with-codex/zh/10-沉淀可复用的Codex提示词流程.md)
 
 ## Evidence appendices / 证据附录
 
