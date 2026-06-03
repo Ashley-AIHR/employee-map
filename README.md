@@ -37,9 +37,13 @@ The sample roster includes eight departments, department heads, individual emplo
 
 ## Codex tutorial
 
-This repo now includes a practical tutorial on how the project was vibe-coded with Codex using the real interactive development flow: reference images, user corrections, realistic data, import logic, verification, and GitHub publication.
+This repo now includes a chapter-based bilingual tutorial on how the project was vibe-coded with Codex using the real interactive development flow: reference images, user corrections, realistic data, import logic, verification, and GitHub publication.
 
-- `docs/vibe-coding-with-codex.md`: step-by-step tutorial based on the real project history
+这个仓库现在包含一套按章节组织的双语教程，完整讲了这个项目是怎么在真实互动中用 Codex 做出来的：从参考图、纠偏、真实数据、导入逻辑，到验证和发布。
+
+- `docs/vibe-coding-with-codex.md`: bilingual tutorial landing page / 双语教程总目录
+- `docs/vibe-coding-with-codex/en/`: 10 English tutorial chapters
+- `docs/vibe-coding-with-codex/zh/`: 10 个中文教程章节
 - `outputs/test-employee-map-import.csv`: test import file for trying the app quickly
 
 ## Local preview
