@@ -58,6 +58,18 @@ Use this when the repo itself is part of the deliverable.
 6. Test locally
 7. Document and publish
 
+## The real sequence from this project
+
+Our actual collaboration evolved roughly like this:
+
+1. Start from design references.
+2. Reject static HTML imitation.
+3. Force front-end-only real workflows.
+4. Force 500+ employee-scale data.
+5. Force testable CSV import.
+6. Force bilingual documentation.
+7. Force a 10-chapter tutorial structure.
+
 ## Final takeaway
 
 The best way to use Codex for product work is not to ask for everything at once. It is to keep giving the next sharp constraint that makes the artifact more real.

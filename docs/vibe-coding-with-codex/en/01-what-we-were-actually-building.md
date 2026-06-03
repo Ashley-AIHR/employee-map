@@ -54,6 +54,14 @@ A usable prototype in this context meant:
 
 That is a very different goal from "make a dashboard page."
 
+## Real checkpoint from this project
+
+One of the most important corrections was:
+
+`this is simply putting pics into html while i want you to understand the words -- it is a fulld esign of a real product not just pics`
+
+That line changed the task from visual recreation to product interpretation.
+
 ## Key takeaway
 
 Before using Codex heavily, spend one prompt clarifying what the thing actually is. That one move often saves hours of cleanup.

@@ -29,6 +29,17 @@ Real company rosters are inconsistent. One file may use `employee_id`, another m
 
 So a good import flow cannot depend on one perfect header shape. It should map a family of likely aliases into standard fields.
 
+## Concrete alias groups from this repo
+
+The current implementation maps groups such as:
+
+- `employee_id / 员工ID / 员工编号 / id / ID`
+- `name / 姓名 / 员工姓名`
+- `department / department_l2 / 部门 / 二级部门 / 团队`
+- `job_title / 岗位名称 / 岗位 / 职位`
+- `contract_type / 合同类型 / 用工类型 / 用工形式`
+- `hire_date / 入职日期 / 入职时间`
+
 ## Why this matters product-wise
 
 This is where the product stopped being "demo-like." Once import works on plausible real files, the app becomes a genuine exploratory tool.
@@ -43,6 +54,10 @@ A simple compatible shape looked like:
 employee_id,name,department,job_title,level,city,contract_type,hire_date,manager
 E0001,张三,销售与市场,销售经理,P4,上海,正式员工,2024-03-01,李四
 ```
+
+The repo also ships a real test file:
+
+- `outputs/test-employee-map-import.csv`
 
 ## How to prompt Codex here
 

@@ -22,6 +22,21 @@ The minimum useful employee model in this project included:
 
 These fields were enough to derive many of the product's first useful signals.
 
+## Concrete sample-company facts from this repo
+
+The seeded company in `script.js` includes:
+
+- 8 named departments
+- department-specific role pools
+- named department heads such as `周然`, `顾骁`, `许诺`, `林嘉`
+- weighted department sizes instead of flat even splits
+- city assignments across 10 cities
+- deterministic contract and hire-date rules
+
+The built-in sample source name is:
+
+- `Ashley_AIHR_640_roster.csv`
+
 ## What those fields unlocked
 
 With this structure, the app could compute:
@@ -54,6 +69,14 @@ Using deterministic generated data instead of random throwaway data helps a lot:
 - screenshots remain consistent
 - exported values remain stable
 - documentation can reference fixed behavior
+
+## One subtle implementation choice
+
+The sample data also carries business texture:
+
+- support functions are more likely to include outsourcing
+- engineering-heavy teams can produce more senior rows
+- department leaders are inserted first so manager chains can be derived afterward
 
 ## How to prompt Codex here
 

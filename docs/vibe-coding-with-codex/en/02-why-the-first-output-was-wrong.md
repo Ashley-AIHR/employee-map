@@ -18,6 +18,15 @@ The strongest user feedback was essentially:
 
 This was not a request for polish. It was a reset of the objective.
 
+## Evidence in the final repo
+
+You can see the effect of that reset in the final deliverable. The repo now includes:
+
+- a deterministic 640-person sample company
+- a real test CSV
+- bilingual documentation
+- a chapter-based tutorial structure
+
 ## Why Codex needed that push
 
 Large models are very willing to complete the nearest visible pattern. If the most obvious pattern is "design recreation," the output often stays at the level of:

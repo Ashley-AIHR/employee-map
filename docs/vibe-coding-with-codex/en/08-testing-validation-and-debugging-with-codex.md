@@ -22,6 +22,22 @@ For a front-end-only product like this, useful checks included:
 - are date formats valid
 - do derived metrics recompute after import
 
+## Concrete validations in the current app
+
+The current import flow explicitly validates:
+
+- total employee rows
+- missing required fields
+- duplicate employee IDs
+- invalid date formats
+
+The import drawer also tells the user that the browser will:
+
+- parse the file
+- generate the employee list
+- rebuild departments
+- save the result to `localStorage`
+
 ## Why Codex is useful in this phase
 
 Codex is strong at turning fuzzy bug reports into structured debugging passes:

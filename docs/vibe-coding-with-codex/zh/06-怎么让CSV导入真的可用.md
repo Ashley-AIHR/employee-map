@@ -31,6 +31,17 @@
 
 如果系统只认一种最完美的字段名，那它在真实世界里就很脆弱。所以“字段别名识别”本身就是产品能力，不只是技术细节。
 
+## 这次 repo 里真实支持的别名
+
+当前实现已经支持一批具体别名：
+
+- `employee_id / 员工ID / 员工编号 / id / ID`
+- `name / 姓名 / 员工姓名`
+- `department / department_l2 / 部门 / 二级部门 / 团队`
+- `job_title / 岗位名称 / 岗位 / 职位`
+- `contract_type / 合同类型 / 用工类型 / 用工形式`
+- `hire_date / 入职日期 / 入职时间`
+
 ## 为什么还要专门准备测试 CSV
 
 因为用户不是开发者视角，他需要一份“立刻能导入成功”的标准输入，来验证整个链路是不是通的。
@@ -49,6 +60,10 @@
 employee_id,name,department,job_title,level,city,contract_type,hire_date,manager
 E0001,张三,销售与市场,销售经理,P4,上海,正式员工,2024-03-01,李四
 ```
+
+现在仓库里也真的带了一份测试文件：
+
+- `outputs/test-employee-map-import.csv`
 
 ## 怎么让 Codex 真去做导入
 

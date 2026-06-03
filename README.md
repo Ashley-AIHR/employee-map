@@ -44,6 +44,8 @@ This repo now includes a chapter-based bilingual tutorial on how the project was
 - `docs/vibe-coding-with-codex.md`: bilingual tutorial landing page / 双语教程总目录
 - `docs/vibe-coding-with-codex/en/`: 10 English tutorial chapters
 - `docs/vibe-coding-with-codex/zh/`: 10 个中文教程章节
+- `docs/vibe-coding-with-codex/en/appendix-real-chat-checkpoints.md`: real chat checkpoints and concrete data evidence
+- `docs/vibe-coding-with-codex/zh/appendix-真实聊天节点与具体数据案例.md`: 真实聊天节点与具体数据证据
 - `outputs/test-employee-map-import.csv`: test import file for trying the app quickly
 
 ## Local preview

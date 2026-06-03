@@ -39,6 +39,11 @@ This tutorial has been expanded into a chapter-based bilingual structure.
 - App entry: `index.html`
 - Main logic: `script.js`
 
+## Evidence appendices / 证据附录
+
+- [English appendix: real chat checkpoints and concrete data examples](vibe-coding-with-codex/en/appendix-real-chat-checkpoints.md)
+- [中文附录：真实聊天节点与具体数据案例](vibe-coding-with-codex/zh/appendix-真实聊天节点与具体数据案例.md)
+
 This project is intentionally a learning project and a front-end-only prototype.
 
 这个项目刻意被保留为学习型项目和纯前端原型。
